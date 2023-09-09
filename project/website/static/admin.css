@@ -1,0 +1,260 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 90%;
+  }
+  
+  .container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+  }
+  
+  .part {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #ccc;
+  }
+  
+  #part1 {
+	height: 40%;
+	align-items: left;
+  }
+  
+  
+  #part2 {
+	margin-left:10%;
+	height: 25%;
+	display: flex;
+	align-items: center;
+  }
+  
+  #part3 {
+	height: 20%;
+	margin-left: 24%;
+	display: flex;
+	align-items: center;
+  }
+.container .btn {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 50px;
+	margin: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container .btn a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(255, 255, 255, 0.05);
+	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 30px;
+	padding: 10px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	overflow: hidden;
+	color: #000000;
+	font-weight: 400px;
+	z-index: 1;
+	transition: 0.5s;
+	backdrop-filter: blur(15px);
+}
+.container .btn:hover a {
+	letter-spacing: 3px;
+}
+.container .btn a::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+	transform: skewX(45deg) translate(0);
+	transition: 0.5s;
+	filter: blur(0px);
+}
+.container .btn:hover a::before {
+	transform: skewX(45deg) translate(200px);
+}
+.container .btn::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	bottom: -5px;
+	width: 30px;
+	height: 10px;
+	background: rgb(255, 255, 255);
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5;
+}
+.container .btn:hover::before /*lightup button*/ {
+	bottom: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+
+.container .btn::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	top: -5px;
+	width: 35px;
+	height: 12px;
+	background: rgb(248, 248, 248);
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5;
+}
+.container .btn:hover::after /*lightup button*/ {
+	top: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+#p1::before, /*chnage 1*/
+#p1::after {
+	background: #ff1f71;
+	box-shadow: 0 0 5px #ff1f71, 0 0 15px #ff1f71, 0 0 30px #ff1f71,
+		0 0 60px #ff1f71;
+}
+#p5::before, /* 2*/
+#p5::after {
+	background: #2db2ff;
+	box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff,
+		0 0 60px #2db2ff;
+}
+#p4::before, /* 3*/
+#p4::after {
+	background: #ff5101;
+	box-shadow: 0 0 5px #ff5101, 0 0 15px #ff5101, 0 0 30px #ff5101,
+		0 0 60px #ff5101;
+}
+#p2::before, /* 2*/
+#p2::after {
+	background: #00f2ff;
+	box-shadow: 0 0 5px #00f2ff, 0 0 15px #00f2ff, 0 0 30px #00f2ff,
+		0 0 60px #00f2ff;
+}
+#p3::before, /* 3*/
+#p3::after {
+	background: #1eff45;
+	box-shadow: 0 0 5px #1eff45, 0 0 15px #1eff45, 0 0 30px #1eff45,
+		0 0 60px #1eff45;
+}
+.form-container  {
+	max-width: 300px;
+	padding: 10px;
+	background-color: white;
+}
+  
+  /* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] ,.form-container select{
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0 22px 0;
+	border: none;
+	background: #f1f1f1;
+}
+  
+  /* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus ,.form-container.select:focus {
+	background-color: #ddd;
+	outline: none;
+}
+.blur-background {
+	  filter: blur(10px);
+}
+.form-container .btn {
+background-color: #04AA6D;
+color: white;
+padding: 16px 20px;
+border: none;
+cursor: pointer;
+width: 100%;
+margin-bottom:10px;
+opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+background-color: red;
+}
+.popup {
+	  position: fixed;
+	  z-index: 1;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  overflow: auto;
+	  background-color: rgba(0, 0, 0, 0.4);
+	  display: none;
+}
+  
+.popup-content {
+	  background-color: white;
+	  margin: 10% auto;
+	  padding: 20px; /* Adjust the padding value */
+	  border: 1px solid #888888;
+	  width: 26%;
+	  font-weight: bolder;
+}
+
+.show {
+	  display: block;
+}
+
+.flashh{
+	position: absolute; 
+	top: 0px;
+	right: 0px;
+	width: 100%;
+	z-index: 600;
+}
+
+
+.title {
+	margin: 5px;
+}
+
+.content {
+	margin: 5px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.employee {
+	flex: 20%;
+	padding: 10px;
+	margin: 5px;
+	background-color: #f3f3f3;
+	inline-size: 100%;
+}
+
+.name {
+	color: #00a36f;
+	text-decoration: none;
+}
+
+
+

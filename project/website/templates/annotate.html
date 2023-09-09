@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin page</title>
+  <style>
+      .divScroll {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 400px;
+        width: 1220px;
+      }
+      .divScroll::-webkit-scrollbar {
+    width: 10px; /* Set the width of the scrollbar */
+}
+      
+      .comments_raw {
+        text-align: center; /* Center-align text */
+        font-size: 20px;
+        margin-top: 1%;
+        margin-right: 80px;
+        margin-left: 100px;
+        border: 2px solid #000000;
+        background-color: #f0efef;
+        inline-size: 90%;
+        width: 90%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 100px;
+        padding-top: 2%;
+        user-select: none;
+      }
+
+      
+      
+      table {
+        border-collapse: collapse;
+        font-size: 20px;
+        width: 900px;
+        margin-left: 300px; 
+        text-align: center;
+        user-select:none;
+      }
+      
+      td {
+        border: 1px solid black;
+        padding: 0px;
+        text-align: center;
+        width: 400px;
+      }
+      
+      th {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: right;
+        background-color: black;
+        color: white;
+      }
+      
+      input[type="text"] {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        border-color: transparent;
+      }
+      table tr:nth-child(odd) input[type="text"] {
+  background-color: #fff;
+}
+
+table tr:nth-child(even) input[type="text"] {
+  background-color: #eee;
+}
+tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+ tr:nth-child(even) {
+  background-color: #eee;
+}
+#Save {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 1150px;
+            margin-right: 10px;
+            margin-top: 2%;
+        }
+#next {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 2%;
+        }
+#logout{
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 2%;
+            margin-left: 10px;
+}
+    </style>
+
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+    />
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+    />
+</head>
+<body>
+  <!-- flashing messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+   <p style="text-align: right;padding:5px;margin-right:3%;"><strong>No of sentences tagged :{{ tag}}</strong></p>
+  <div class="container-fluid">
+    <div class="col">
+    <div class="comments_raw">
+    {% for i in result %}
+      <p>{{i[1]}}</p>
+    {% endfor %}
+  </div>
+  <br> 
+  <table >
+    <tr>
+      <th>Words</th>
+      <th>Lang Tag</th>
+      <th>POS Tag</th>
+    </tr>
+  </table>
+<div class="divScroll">
+  <form method="post" action="/submit">
+    <table>
+      {% for j in final %}
+        <tr>
+          <td>{{j[0]}}</td>
+          <td><input class="lang-input" type="text" name="lang" value="{{j[1]}}"></td>
+          <td><input class="pos-input" type="text" name="pos" value="{{j[2]}}"></td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+      <a href="/logout" class="btn btn-dark btn-sm" role="button" id="logout">Logout</a>
+      <input type="submit" name = "Save" value="Save" id="Save">
+      <input type="submit" name="next"  value="next" id="next">
+    <input type="hidden" name = "sid" value = "{{sent}}">
+  </form>
+</div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+   crossorigin="anonymous"
+   ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const langInputs = document.querySelectorAll('.lang-input');
+      const posInputs = document.querySelectorAll('.pos-input');
+    
+      // Add event listeners to lang input fields
+      langInputs.forEach((input, index) => {
+        input.addEventListener('keydown', function(event) {
+          if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            if (index + 1 < langInputs.length) {
+              langInputs[index + 1].focus();
+            } else if (index < posInputs.length) {
+              posInputs[index].focus();
+            }
+          } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            if (index - 1 >= 0) {
+              langInputs[index - 1].focus();
+            } else if (index >= posInputs.length) {
+              posInputs[posInputs.length - 1].focus();
+            }
+          }
+          else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      if (index + 1 < langInputs.length) {
+        langInputs[index + 1].focus();
+      } else if (index < posInputs.length) {
+        posInputs[index].focus();
+      }
+    } else if (event.key === 'ArrowRight'|| event.key === 'Enter') {
+      event.preventDefault();
+      if (index < posInputs.length) {
+        posInputs[index].focus();
+      }
+    }
+
+        });
+      });
+      // Add event listeners to pos input fields
+      posInputs.forEach((input, index) => {
+        input.addEventListener('keydown', function(event) {
+      
+           if (event.key === 'ArrowDown' || event.key === 'Enter') {
+            event.preventDefault();
+            if (index + 1 < posInputs.length) {
+              posInputs[index + 1].focus();
+            } else if (index < langInputs.length) {
+              langInputs[index].focus();
+            }
+          } else if (event.key === 'ArrowUp' ) {
+            event.preventDefault();
+            if (index - 1 >= 0) {
+              posInputs[index - 1].focus();
+            } else if (index >= langInputs.length) {
+              langInputs[langInputs.length - 1].focus();
+            }
+          }
+          else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      if (index < langInputs.length) {
+        langInputs[index].focus();
+      }
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      if (index + 1 < posInputs.length) {
+        posInputs[index + 1].focus();
+      }
+    }
+        });
+      });
+    });
+    </script>
+</body>
+
+</html>

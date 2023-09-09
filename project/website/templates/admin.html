@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='admin.css') }}">
+    <title>Admin page</title>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+    />
+ 
+</head>
+<body>
+    <!-- flashing messages -->
+<div class ="flashh">
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+</div>   
+
+
+    <div class="container">
+        <div  id="part1" class="part1">
+            <h2 style="padding-left: 25px; padding-top: 125px;"> <span style="color: rgb(255, 0, 149);">Hello</span> <span style="color: rgb(77, 0, 154);"> {{name}} !</span></h2>
+        </div>
+        <div id="part2" class="part2">
+        <div class="btn" id="p1"><a href="#" id="myButton">Create user</a></div>
+        <div class="btn" id="p2"><a href="#" id="myFile">Upload File</a></div>
+        <div class="btn" id="p3"><a href="/download"  id="Download"  >Download File</a></div>
+    </div>
+        <div  id="part3" class="part3">
+            <div class="btn" id="p4"><a href="/showme" id="show">Show Annotators</a></div>
+        <div class="btn" id="p5"><a href="/logout" >Log out</a></div>
+        </div>
+
+       <div class="content">
+        {% block content %}{% endblock %}
+       </div>
+        
+    </div>
+    
+            <form  class="form-container" method="POST" action="{{ url_for('auth.admin') }}">
+                <div id="myPopup" class="popup">
+                    <div class="popup-content">
+                <input type="hidden" name="login_submit" value="login_submit">
+                <h1 class="h1">Create User</h1>
+                <input type="text" placeholder="Enter Username"  name="username" required>
+                <select  id="select" name="role" required>
+                    <option value="annotator" >Annotator</option>
+                    <option value="admin" >Admin</option>
+                </select> <br>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button type="submit" class="btn login" >Create</button><br>
+                <button type="button" class="btn cancel" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+            </form>
+    <div id="myfile" class="popup">
+        <div class="popup-content">
+            <form  class="form-container" method = "post" enctype="multipart/form-data" action="{{ url_for('auth.admin') }}">  
+                <input type="hidden" name="other_form" value="other_form">
+                <input type="file" name="file"  style="padding: 10px;margin-bottom:10px;margin-left: 40px;">   <br>
+                <input type = "submit" value="Upload" style="padding:10px;background-color:rgb(0, 191, 255); width: 200px;margin-left: 40px;margin-bottom: 10px;" >  <br>
+                <button type="button" class="btn cancel" onclick="closefile()">Close</button>
+            </form> 
+        </div>
+    </div>
+    <script>
+        myButton.addEventListener("click", function () {
+            myPopup.classList.add("show");
+            document.body.classList.add("blurry-effect");
+        });
+    
+        function closePopup() {
+            myPopup.classList.remove("show");
+            document.body.classList.remove("blurry-effect");
+        }
+    
+        window.addEventListener("click", function (event) {
+            if (event.target == myPopup) {
+                closePopup();
+            }
+        });
+    
+        myFile.addEventListener("click", function () {
+            myfile.classList.add("show");
+            document.body.classList.add("blurry-effect");
+        });
+    
+        function closefile() {
+            myfile.classList.remove("show");
+            document.body.classList.remove("blurry-effect");
+        }
+        show.addEventListener("click", function () {
+            ann.classList.add("show");
+            document.body.classList.add("blurry-effect");
+        });
+    
+        function closeshow() {
+            ann.classList.remove("show");
+            document.body.classList.remove("blurry-effect");
+        }
+ 
+    </script>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+    ></script>
+</body>
+</html>
